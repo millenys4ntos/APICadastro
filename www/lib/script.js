@@ -52,7 +52,7 @@ window.onload = function(){
       body:JSON.stringify({
         'nome': `${nome.value}`,
         'curso': `${curso.value}`
-      })
+      }),
     }).then(()=>{
       
       alert("Registro alterado com sucesso!");
@@ -62,7 +62,7 @@ window.onload = function(){
 
   //metodo para deletar um registro
   deletar.addEventListener("click", function(){
-    fetch(`https://www.jussimarleal.com.br/exemplo_api/pessoa/${alterar.value}`,{
+    fetch(`https://www.jussimarleal.com.br/exemplo_api/pessoa/${id.value}`,{
       method:"delete",
       mode:'cors',
       cache:'default',
