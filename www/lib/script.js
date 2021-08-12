@@ -6,6 +6,7 @@ window.onload = function(){
   const id = document.querySelector("#id");
   const alterar = document.querySelector("#alterar");
   const deletar = document.querySelector("#deletar");
+  const qrcode = document.querySelector("#qrcode");
 
   //ação de cadastrar uma pessoa e curso
   cadastrar.addEventListener("click", function(){
@@ -72,9 +73,41 @@ window.onload = function(){
     });
   });
 
+  qrcode.addEventListener("click", function(){
+    cordova.plugins.barcodeScanner.scan(
+      fetch(`https://www.jussimarleal.com.br/exemplo_api/pessoa/${result.text}`,{
+      method:"get",
+      mode:'cors',
+      cache:'default'
+    }).then(response=>{
+      response.json().then(data => {
+        nome.value = data['nome'];
+        curso.value = data['curso'];
+      })
+    }),
+      function (error) {
+          alert("Ocorreu algum erro: " + error);
+      },
+      {
+          preferFrontCamera : false, 
+          showFlipCameraButton : true, 
+          showTorchButton : true,
+          torchOn: true, 
+          saveHistory: true, 
+          prompt : "Place a barcode inside the scan area", 
+          resultDisplayDuration: 500, 
+          formats : "QR_CODE,PDF_417, CODE_39", 
+          orientation : "landscape",
+          disableAnimations : true, 
+          disableSuccessBeep: true 
+      }
+   );
+});
+
   //metodo para limpar os campos
   function limparCampos(){
     nome.value = "";
     curso.value = "";
   }
+
 }
