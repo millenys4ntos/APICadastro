@@ -75,6 +75,7 @@ window.onload = function(){
 
   qrcode.addEventListener("click", function(){
     cordova.plugins.barcodeScanner.scan(
+      function (result){
       fetch(`https://www.jussimarleal.com.br/exemplo_api/pessoa/${result.text}`,{
       method:"get",
       mode:'cors',
@@ -84,7 +85,7 @@ window.onload = function(){
         nome.value = data['nome'];
         curso.value = data['curso'];
       })
-    }),
+  }),
       function (error) {
           alert("Ocorreu algum erro: " + error);
       },
