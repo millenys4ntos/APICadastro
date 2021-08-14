@@ -128,7 +128,6 @@ navigator.notification.confirm(
    "Erro na Conexão!",
     ["Sair", "Tentar novamente"]);
  }
- 
 
 //metodo para sair do app
 function sair(){
