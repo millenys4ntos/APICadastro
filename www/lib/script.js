@@ -10,6 +10,7 @@ window.onload = function(){
 
   //ação de cadastrar uma pessoa e curso
   cadastrar.addEventListener("click", function(){
+    checarConexao();
     let formdata = new FormData();
     formdata.append('nome', `${nome.value}`);
     formdata.append('curso', `${curso.value}`);
@@ -29,6 +30,7 @@ window.onload = function(){
 
   //metodo que listar uma pessoa
   buscar.addEventListener("click", function(){
+    checarConexao();
     fetch(`https://www.jussimarleal.com.br/exemplo_api/pessoa/${id.value}`,{
       method:"get",
       mode:'cors',
@@ -38,11 +40,12 @@ window.onload = function(){
         nome.value = data['nome'];
         curso.value = data['curso'];
       })
-    })
+    }) 
   });
 
   //metodo para alterar dados dos registros
   alterar.addEventListener("click", function(){
+    checarConexao();
     fetch(`https://www.jussimarleal.com.br/exemplo_api/pessoa/${id.value}`,{
       method:"put",
       mode:'cors',
@@ -63,6 +66,7 @@ window.onload = function(){
 
   //metodo para deletar um registro
   deletar.addEventListener("click", function(){
+    checarConexao();
     fetch(`https://www.jussimarleal.com.br/exemplo_api/pessoa/${id.value}`,{
       method:"delete",
       mode:'cors',
@@ -73,9 +77,11 @@ window.onload = function(){
     });
   });
 
+  //metodo para buscar c qrcode
   qrcode.addEventListener("click", function(){
+    checarConexao();
     cordova.plugins.barcodeScanner.scan(
-      function (result){
+      function (result) {
       fetch(`https://www.jussimarleal.com.br/exemplo_api/pessoa/${result.text}`,{
       method:"get",
       mode:'cors',
@@ -85,7 +91,8 @@ window.onload = function(){
         nome.value = data['nome'];
         curso.value = data['curso'];
       })
-  }),
+    })
+  },
       function (error) {
           alert("Ocorreu algum erro: " + error);
       },
@@ -104,6 +111,29 @@ window.onload = function(){
       }
    );
 });
+
+//metodo verificar conexao
+ function checarConexao() {
+    var networkState = navigator.connection.type;
+    if(networkState == Connection.NONE){
+      function checarConexao(buttonIndex){
+        if(buttonIndex == "1"){
+          sair();
+        }
+    }
+    }
+navigator.notification.confirm(
+  "Você está sem conexão, tente novamente ou volte mais tarde.",
+   checarConexao,
+   "Erro na Conexão!",
+    ["Sair", "Tentar novamente"]);
+ }
+ 
+
+//metodo para sair do app
+function sair(){
+  navigator.app.exitApp();
+}
 
   //metodo para limpar os campos
   function limparCampos(){
