@@ -121,7 +121,7 @@ window.onload = function(){
           sair();
         }
     }
-    }
+ }
 navigator.notification.confirm(
   "Você está sem conexão, tente novamente ou volte mais tarde.",
    checarConexao,
