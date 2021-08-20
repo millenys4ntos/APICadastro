@@ -7,6 +7,7 @@ window.onload = function(){
   const alterar = document.querySelector("#alterar");
   const deletar = document.querySelector("#deletar");
   const qrcode = document.querySelector("#qrcode");
+  const limpar = document.querySelector("#limpar");
 
   //ação de cadastrar uma pessoa e curso
   cadastrar.addEventListener("click", function(){
@@ -115,19 +116,25 @@ window.onload = function(){
 //metodo verificar conexao
  function checarConexao() {
     var networkState = navigator.connection.type;
-    if(networkState == Connection.NONE){
+
+    if (networkState == Connection.NONE){
       function checarConexao(buttonIndex){
         if(buttonIndex == "1"){
           sair();
         }
     }
- }
 navigator.notification.confirm(
   "Você está sem conexão, tente novamente ou volte mais tarde.",
    checarConexao,
    "Erro na Conexão!",
     ["Sair", "Tentar novamente"]);
+  }
  }
+
+//botao limpar
+  limpar.addEventListener("click", function(){
+    limparCampos();
+  })
 
 //metodo para sair do app
 function sair(){
@@ -136,8 +143,8 @@ function sair(){
 
   //metodo para limpar os campos
   function limparCampos(){
+    id.value = "";
     nome.value = "";
     curso.value = "";
   }
-
 }
